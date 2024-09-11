@@ -1,0 +1,19 @@
+def findDuplicate(arr):
+    # Step 1: Initialize slow and fast pointers
+    slow = arr[0]
+    fast = arr[0]
+    
+    # Step 2 and 3: Move slow and fast pointers
+    while True:
+        slow = arr[slow]
+        fast = arr[arr[fast]]
+        if slow == fast:
+            break
+    
+    # Step 5 and 6: Reset slow pointer and move both pointers
+    slow = arr[0]
+    while slow != fast:
+        slow = arr[slow]
+        fast = arr[fast]
+    
+    return slow
