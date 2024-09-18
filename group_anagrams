@@ -1,0 +1,15 @@
+# Day 10
+from collections import defaultdict
+def group_anagrams(strs):
+    anagram_map = defaultdict(list)
+    for word in strs:
+        sorted_word = ''.join(sorted(word))
+        anagram_map[sorted_word].append(word)
+    return list(anagram_map.values())
+
+# Test cases
+print(group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"])) 
+print(group_anagrams([""]))
+print(group_anagrams(["a"]))
+print(group_anagrams(["abc", "bca", "cab", "xyz", "zyx", "yxz"])) 
+print(group_anagrams(["abc", "def", "ghi"]))
