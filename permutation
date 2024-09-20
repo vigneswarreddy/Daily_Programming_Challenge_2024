@@ -1,0 +1,23 @@
+def permute_unique(s):
+    s = sorted(s)
+    result = []
+    visited = [False] * len(s)
+    def backtrack(path):
+        if len(path) == len(s):
+            result.append(''.join(path))
+            return
+        for i in range(len(s)):
+            if visited[i] or (i > 0 and s[i] == s[i - 1] and not visited[i - 1]):
+                continue
+            visited[i] = True
+            backtrack(path + [s[i]])
+            visited[i] = False
+    backtrack([])
+    return result
+
+# Test cases
+print(permute_unique("abc"))
+print(permute_unique("aab"))
+print(permute_unique("aaa"))
+print(permute_unique("a"))
+print(permute_unique("abcd"))
