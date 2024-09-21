@@ -1,0 +1,42 @@
+# Day 13
+def longestPalindrome(s: str) -> str:
+    n = len(s)
+    if n == 0:
+        return ""
+    
+    start = 0
+    max_len = 1
+    
+    dp = [[False] * n for _ in range(n)]
+    
+    for i in range(n):
+        dp[i][i] = True
+    
+    for i in range(n - 1):
+        if s[i] == s[i + 1]:
+            dp[i][i + 1] = True
+            start = i
+            max_len = 2
+    
+    for length in range(3, n + 1):
+        for i in range(n - length + 1):
+            j = i + length - 1
+            if s[i] == s[j] and dp[i + 1][j - 1]:
+                dp[i][j] = True
+                start = i
+                max_len = length
+    
+    return s[start:start + max_len]
+
+# Test cases
+test_cases = [
+    ("babad", "bab"),
+    ("cbbd", "bb"),
+    ("a", "a"),
+    ("aaaa", "aaaa"),
+    ("abc", "a")
+]
+
+for i, (input_str, expected_output) in enumerate(test_cases):
+    result = longestPalindrome(input_str)
+    print(f"Test Case {i + 1}: Input: {input_str}, Expected Output: {expected_output}, Result: {result}, Passed: {result == expected_output}")
