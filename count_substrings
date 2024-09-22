@@ -1,0 +1,30 @@
+# Day 14
+from collections import defaultdict
+def count_substrings_with_k_distinct(s: str, k: int) -> int:
+    def at_most_k_distinct(s: str, k: int) -> int:
+        n = len(s)
+        count = 0
+        left = 0
+        freq = defaultdict(int)   
+        for right in range(n):
+            freq[s[right]] += 1          
+            while len(freq) > k:
+                freq[s[left]] -= 1
+                if freq[s[left]] == 0:
+                    del freq[s[left]]
+                left += 1         
+            count += right - left + 1     
+        return count
+    return at_most_k_distinct(s, k) - at_most_k_distinct(s, k - 1)
+
+# Test cases
+test_cases = [
+    ("pqpqs", 2, 7),
+    ("aabacbebebe", 3, 10),
+    ("a", 1, 1),
+    ("abc", 3, 1),
+    ("abc", 2, 2),
+]
+for i, (input_str, k, expected_output) in enumerate(test_cases):
+    result = count_substrings_with_k_distinct(input_str, k)
+    print(f"Test Case {i + 1}: Input: {input_str}, k = {k}, Expected Output: {expected_output}, Result: {result}, Passed: {result == expected_output}")
