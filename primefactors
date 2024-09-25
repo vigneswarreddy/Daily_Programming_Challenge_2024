@@ -1,0 +1,33 @@
+def prime_factors(N):
+    factors = []
+    # Check for number of 2s that divide N
+    while N % 2 == 0:
+        factors.append(2)
+        N //= 2
+    
+    # N must be odd at this point, so we can skip even numbers
+    for i in range(3, int(N**0.5) + 1, 2):
+        while N % i == 0:
+            factors.append(i)
+            N //= i
+    
+    # This condition is to check if N is a prime number
+    # greater than 2
+    if N > 2:
+        factors.append(N)
+    
+    return factors
+
+# Test cases
+test_cases = [
+    (18, [2, 3, 3]),
+    (30, [2, 3, 5]),
+    (49, [7, 7]),
+    (19, [19]),
+    (64, [2, 2, 2, 2, 2, 2]),
+    (123456, [2, 2, 2, 2, 2, 3, 643]),
+]
+
+for i, (N, expected_output) in enumerate(test_cases):
+    result = prime_factors(N)
+    print(f"Test Case {i + 1}: N = {N}, Expected Output: {expected_output}, Result: {result}, Passed: {result == expected_output}")
