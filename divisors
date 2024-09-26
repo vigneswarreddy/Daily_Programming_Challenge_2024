@@ -1,0 +1,24 @@
+# Day 18
+def count_divisors(N):
+    count = 0
+    for i in range(1, int(N**0.5) + 1):
+        if N % i == 0:
+            if i == N // i:  
+                count += 1
+            else:
+                count += 2
+    return count
+
+# Test cases
+test_cases = [
+    (12, 6),    
+    (18, 6),    
+    (29, 2),    
+    (100, 9),   
+    (1, 1),     
+    (997, 2)    
+]
+
+for i, (N, expected_output) in enumerate(test_cases):
+    result = count_divisors(N)
+    print(f"Test Case {i + 1}: N = {N}, Expected Output: {expected_output}, Result: {result}, Passed: {result == expected_output}")
