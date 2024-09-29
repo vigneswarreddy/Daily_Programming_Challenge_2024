@@ -1,0 +1,38 @@
+# Day 21
+def insert_at_bottom(stack, element):
+    if len(stack) == 0:
+        stack.append(element)
+    else:
+        top = stack.pop()
+        insert_at_bottom(stack, element)
+        stack.append(top)
+def reverse_stack(stack):
+    if len(stack) > 0:
+        top = stack.pop()
+        reverse_stack(stack)
+        insert_at_bottom(stack, top)
+
+# Test cases
+stack1 = [1, 2, 3, 4]
+reverse_stack(stack1)
+print(stack1)  
+
+stack2 = [3, 2, 1]
+reverse_stack(stack2)
+print(stack2)  
+
+stack3 = [5]
+reverse_stack(stack3)
+print(stack3) 
+
+stack4 = [-5, -10, -15]
+reverse_stack(stack4)
+print(stack4)  
+
+stack5 = []
+reverse_stack(stack5)
+print(stack5) 
+
+stack6 = [3, 3, 3]
+reverse_stack(stack6)
+print(stack6)  
