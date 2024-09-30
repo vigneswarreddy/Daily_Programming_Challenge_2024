@@ -1,0 +1,16 @@
+# Day 22
+def find_first_k_occurrences(arr, k):
+    frequency = {}
+    for num in arr:
+        frequency[num] = frequency.get(num, 0) + 1
+    for num in arr:
+        if frequency[num] == k:
+            return num
+    return -1
+
+# Example Test Cases
+print(find_first_k_occurrences([3, 1, 4, 4, 5, 2, 6, 1, 4], 2))  
+print(find_first_k_occurrences([2, 3, 4, 2, 2, 5, 5], 2))       
+print(find_first_k_occurrences([1, 1, 1, 1], 1))                
+print(find_first_k_occurrences([10], 1))                        
+print(find_first_k_occurrences([6, 6, 6, 6, 7, 7, 8, 8, 8], 3)) 
