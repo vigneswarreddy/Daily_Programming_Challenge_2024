@@ -1,0 +1,44 @@
+# Day 24
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+def lowest_common_ancestor(root, p, q):
+    if not root or root == p or root == q:
+        return root
+    left = lowest_common_ancestor(root.left, p, q)
+    right = lowest_common_ancestor(root.right, p, q)
+    if left and right:
+        return root
+    return left if left else right
+def build_tree(values):
+    if not values:
+        return None
+    nodes = [None if val is None else TreeNode(val) for val in values]
+    children = nodes[::-1]
+    root = children.pop()
+    for node in nodes:
+        if node:
+            if children:
+                node.left = children.pop()
+            if children:
+                node.right = children.pop()
+    return root
+
+# Test Cases
+root = build_tree([3, 5, 1, 6, 2, 0, 8, None, None, 7, 4])
+p = root.left         
+q = root.right        
+print(lowest_common_ancestor(root, p, q).val)  
+
+# Example 2
+p = root.left         
+q = root.left.right.right  
+print(lowest_common_ancestor(root, p, q).val)  
+
+# Example 3
+root = build_tree([1, 2])
+p = root            
+q = root.left       
+print(lowest_common_ancestor(root, p, q).val) 
