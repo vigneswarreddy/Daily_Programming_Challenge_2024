@@ -1,0 +1,43 @@
+# Day 26
+from collections import defaultdict
+def detect_cycle_in_undirected_graph(V, edges):
+    graph = defaultdict(list)
+    for u, v in edges:
+        graph[u].append(v)
+        graph[v].append(u)
+    def dfs(v, visited, parent):
+        visited[v] = True
+        for neighbor in graph[v]:
+            if not visited[neighbor]:
+                if dfs(neighbor, visited, v):  
+                    return True
+            elif neighbor != parent:
+                return True
+        return False
+    visited = [False] * V
+    for i in range(V):
+        if not visited[i]:
+            if dfs(i, visited, -1):
+                return True
+    return False
+
+# Example usage:
+# Test Case 1: Graph with cycle
+V1 = 5
+edges1 = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 0]]
+print(detect_cycle_in_undirected_graph(V1, edges1))  
+
+# Test Case 2: Graph without cycle
+V2 = 3
+edges2 = [[0, 1], [1, 2]]
+print(detect_cycle_in_undirected_graph(V2, edges2))  
+
+# Test Case 3: Single node, no edges
+V3 = 1
+edges3 = []
+print(detect_cycle_in_undirected_graph(V3, edges3))  
+
+# Test Case 4: No cycle, a chain-like structure
+V4 = 4
+edges4 = [[0, 1], [1, 2], [2, 3]]
+print(detect_cycle_in_undirected_graph(V4, edges4))  
